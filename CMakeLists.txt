@@ -1,0 +1,42 @@
+#
+# COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF
+# EXPONENTIAL TECHNOLOGY GROUP.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# Set the displayed message level:  STATUS VERBOSE DEBUG TRACE
+set(CMAKE_MESSAGE_LOG_LEVEL STATUS)
+
+# Macro to create the source FILES list in a subdir.
+macro(CollectSubdirFiles subdir varname)
+   include(${subdir}/CMakeLists.txt)
+   foreach(FILE ${FILES})
+     set(${varname} ${${varname}} ${subdir}/${FILE})
+   endforeach()
+   message(VERBOSE "${varname}: ${${varname}}")
+endmacro()
+
+# Collect the source files in each subdir.
+CollectSubdirFiles(../RadioDriverHAL                           RadioDriverHALFiles)
+CollectSubdirFiles(../RALBSP                                   RALBSPFiles)
+CollectSubdirFiles(../ModemHAL                                 ModemHALFiles)
+CollectSubdirFiles(../LoRaBasicsModem_SWL2001/smtc_modem_core  LBMFiles)
+
+# Add all subdir source files to the target.
+target_sources(app PRIVATE
+   ${RadioDriverHALFiles}
+   ${RALBSPFiles}
+   ${ModemHALFiles}
+   ${LBMFiles}
+)
+
+if (CONFIG_LBM_HAL_DBG)
+    add_compile_definitions(MODEM_HAL_DBG_TRACE)
+endif()
+
+if (CONFIG_LBM_HAL_DBG_DEEP)
+    add_compile_definitions(
+       MODEM_HAL_DBG_TRACE
+       MODEM_HAL_DEEP_DBG_TRACE)
+endif()
+

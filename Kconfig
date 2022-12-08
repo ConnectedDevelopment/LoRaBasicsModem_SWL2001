@@ -1,0 +1,69 @@
+# COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF
+# EXPONENTIAL TECHNOLOGY GROUP.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# LoRaWAN configuration options
+
+menuconfig LORABASICSMODEM
+   bool "LBM support"
+   help
+     This option enables LoRa Basics Modem (LBM) support.
+
+if LORABASICSMODEM
+
+config LBM_HAL_DBG
+   bool "Debug logs"
+   default y
+
+config LBM_HAL_DBG_DEEP
+   bool "Deep Debug logs"
+   depends on LBM_HAL_DBG
+
+module = LBM
+module-str = LoRa Basics Modem
+source "subsys/logging/Kconfig.template.log_config"
+
+choice LBM_REGION
+   prompt "LoRa Basics Modem Region Selection"
+   default REGION_US_915
+   help
+     Select the LoRaWAN region.
+
+config REGION_UNKNOWN
+   bool "Unknown region"
+
+config REGION_AS923
+   bool "Asia 923MHz Frequency band"
+
+config REGION_AU915
+   bool "Australia 915MHz Frequency band"
+
+config REGION_CN470
+   bool "China 470MHz Frequency band"
+
+config REGION_CN779
+   bool "China 779MHz Frequency band"
+
+config REGION_EU433
+   bool "Europe 433MHz Frequency band"
+
+config REGION_EU868
+   bool "Europe 868MHz Frequency band"
+
+config REGION_KR920
+   bool "South Korea 920MHz Frequency band"
+
+config REGION_IN865
+   bool "India 865MHz Frequency band"
+
+config REGION_US_915
+   bool "North America 915MHz Frequency band"
+
+config REGION_RU864
+   bool "Russia 864MHz Frequency band"
+
+endchoice
+
+endif # LORABASICSMODEM
+
