@@ -31,12 +31,14 @@ target_sources(app PRIVATE
 )
 
 if (CONFIG_LBM_HAL_DBG)
-    add_compile_definitions(MODEM_HAL_DBG_TRACE)
+   target_compile_definitions(app PRIVATE MODEM_HAL_DBG_TRACE=1)
+else()
+   target_compile_definitions(app PRIVATE MODEM_HAL_DBG_TRACE=0)
 endif()
 
 if (CONFIG_LBM_HAL_DBG_DEEP)
-    add_compile_definitions(
-       MODEM_HAL_DBG_TRACE
-       MODEM_HAL_DEEP_DBG_TRACE)
+   target_compile_definitions(app PRIVATE MODEM_HAL_DEEP_DBG_TRACE=1)
+else()
+   target_compile_definitions(app PRIVATE MODEM_HAL_DEEP_DBG_TRACE=0)
 endif()
 

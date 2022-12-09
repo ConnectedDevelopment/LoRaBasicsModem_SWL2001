@@ -48,5 +48,5 @@ set(FILES
 # Append the configured region source files.
 if (CONFIG_REGION_US_915)
     set(FILES ${FILES} lr1mac/src/smtc_real/src/region_us_915.c)
-    add_compile_definitions(REGION_US_915)
+    target_compile_definitions(app PRIVATE REGION_US_915)
 endif()
