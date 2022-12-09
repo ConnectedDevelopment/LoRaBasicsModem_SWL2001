@@ -180,7 +180,7 @@ typedef enum sx126x_commands_size_e
     SX126X_SIZE_SET_BUFFER_BASE_ADDRESS    = 3,
     SX126X_SIZE_SET_LORA_SYMB_NUM_TIMEOUT  = 2,
     // Communication Status Information
-    SX126X_SIZE_GET_STATUS           = 1,
+    SX126X_SIZE_GET_STATUS           = 2,
     SX126X_SIZE_GET_RX_BUFFER_STATUS = 2,
     SX126X_SIZE_GET_PKT_STATUS       = 2,
     SX126X_SIZE_GET_RSSI_INST        = 2,
@@ -805,7 +805,8 @@ sx126x_status_t sx126x_set_lora_symb_nb_timeout( const void* context, const uint
 sx126x_status_t sx126x_get_status( const void* context, sx126x_chip_status_t* radio_status )
 {
     const uint8_t buf[SX126X_SIZE_GET_STATUS] = {
-        SX126X_GET_STATUS,
+       SX126X_GET_STATUS,
+       SX126X_NOP,
     };
     uint8_t         status_local = 0;
     sx126x_status_t status       = SX126X_STATUS_ERROR;

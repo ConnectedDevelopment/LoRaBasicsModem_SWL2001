@@ -728,7 +728,7 @@ void lr1_stack_mac_rx_timer_configure( lr1_stack_mac_t* lr1_mac, const rx_win_ty
 {
     const uint32_t tcurrent_ms = smtc_modem_hal_get_time_in_ms( );
     bool           is_type_ok  = true;
-    uint32_t       delay_ms;
+    uint32_t       delay_ms = 0;
 
     smtc_real_set_rx_config( lr1_mac, type );
 
