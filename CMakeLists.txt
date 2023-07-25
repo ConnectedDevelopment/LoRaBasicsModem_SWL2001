@@ -1,11 +1,10 @@
 #
-# COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF
+# COPYRIGHT 2023 CONNECTED DEVELOPMENT, A DIVISION OF
 # EXPONENTIAL TECHNOLOGY GROUP.
 #
 # SPDX-License-Identifier: Apache-2.0
 
-# Set the displayed message level:  STATUS VERBOSE DEBUG TRACE
-set(CMAKE_MESSAGE_LOG_LEVEL STATUS)
+message(INFO ": LoRaBasicsModem_SWL2001 Dir: ${CMAKE_CURRENT_LIST_DIR}")
 
 # Macro to create the source FILES list in a subdir.
 macro(CollectSubdirFiles subdir varname)
@@ -13,14 +12,16 @@ macro(CollectSubdirFiles subdir varname)
    foreach(FILE ${FILES})
      set(${varname} ${${varname}} ${subdir}/${FILE})
    endforeach()
-   message(VERBOSE "${varname}: ${${varname}}")
+   message(VERBOSE ": ${varname}: ${${varname}}")
 endmacro()
 
 # Collect the source files in each subdir.
-CollectSubdirFiles(../RadioDriverHAL                           RadioDriverHALFiles)
-CollectSubdirFiles(../RALBSP                                   RALBSPFiles)
-CollectSubdirFiles(../ModemHAL                                 ModemHALFiles)
-CollectSubdirFiles(../LoRaBasicsModem_SWL2001/smtc_modem_core  LBMFiles)
+CollectSubdirFiles(${CMAKE_CURRENT_LIST_DIR}/../RadioDriverHAL  RadioDriverHALFiles)
+CollectSubdirFiles(${CMAKE_CURRENT_LIST_DIR}/../RALBSP          RALBSPFiles)
+CollectSubdirFiles(${CMAKE_CURRENT_LIST_DIR}/../ModemHAL        ModemHALFiles)
+
+# Collect the source files in the LoRa Basics Modem core folder.
+CollectSubdirFiles(${CMAKE_CURRENT_LIST_DIR}/../LoRaBasicsModem_SWL2001/smtc_modem_core  LBMFiles)
 
 # Add all subdir source files to the target.
 target_sources(app PRIVATE
